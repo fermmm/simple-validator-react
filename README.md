@@ -14,6 +14,10 @@ The ```<input>``` tag can be replaced with the input component from your favorit
 
 That opens a sandbox webpage where you can test the validator in the browser.
 
+## Known bugs:
+
+Underline glitch when the input text gets scroller vertically or horizontally.
+
 ## Donate
 
 If you like this library and want it to become something even better, please donate [here.](https://www.paypal.me/fermmm)
