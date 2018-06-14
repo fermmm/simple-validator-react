@@ -13,3 +13,7 @@ The ```<input>``` tag can be replaced with the input component from your favorit
 3) run ```npm run start```
 
 That opens a sandbox webpage where you can test the validator in the browser.
+
+## Donate
+
+If you like this library and want it to become something even better, please donate [here.](https://www.paypal.me/fermmm)
