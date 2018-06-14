@@ -3,11 +3,12 @@ import ValidationHandler from './ValidationHandler/ValidationHandler'
 import UnderlineOverlay from './UnderlineOverlay/UnderlineOverlay'
 import PropTypes from 'prop-types';
 
-class InputWrapper extends Component {
+class NativeInputWrapper extends Component {
     static propTypes = {
         validator: PropTypes.func,
         showValidationErrorWhileTyping: PropTypes.bool,
-        showValidationErrorOnMount: PropTypes.bool
+        showValidationErrorOnMount: PropTypes.bool,
+        disableUnderline: PropTypes.bool
     };
 
     state = {
@@ -31,12 +32,13 @@ class InputWrapper extends Component {
 
     frowardProps() {
         this.propsToFroward = {...this.props};
-        delete this.propsToFroward.validator
-        delete this.propsToFroward.showValidationErrorWhileTyping
-        delete this.propsToFroward.showValidationErrorOnMount
-        delete this.propsToFroward.onChange
-        delete this.propsToFroward.onBlur
-        delete this.propsToFroward.onFocus
+        delete this.propsToFroward.validator;
+        delete this.propsToFroward.showValidationErrorWhileTyping;
+        delete this.propsToFroward.showValidationErrorOnMount;
+        delete this.propsToFroward.onChange;
+        delete this.propsToFroward.onBlur;
+        delete this.propsToFroward.onFocus;
+        delete this.propsToFroward.disableUnderline;
     }
 
     onChange(e) {
@@ -71,7 +73,7 @@ class InputWrapper extends Component {
         return (
             <div style={{position:"relative"}}>
                 <input {...this.propsToFroward} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} ref={this.inputRef} spellCheck={false}/>
-                {this.inputRef.current &&
+                {(this.inputRef.current && !this.props.disableUnderline) &&
                     <UnderlineOverlay
                         offsetLeft={1}
                         offsetTop={11}
@@ -88,4 +90,4 @@ class InputWrapper extends Component {
     }
 }
 
-export default InputWrapper;
+export default NativeInputWrapper;

@@ -1,56 +1,88 @@
 import React, { Component } from 'react';
-import InputWrapper from './Components/InputWrapper/InputWrapper';
+import NativeInputWrapper from './Components/InputWrapper/NativeInputWrapper';
 import { Validation } from 'simple-validator-js';
+import MuiTextFieldWrapper from './Components/InputWrapper/MuiTextFieldWrapper';
+
+
 
 class App extends Component {
     validators = {
-        email: (t) =>
+        testValidator: (t) =>
             new Validation(t)
                 .noNumbersAllowed(false)    // Autocorrect disabled for this rule
                 .wordsShouldStartWithUpperCase(true)
     };
 
-    state = { 
-        value:"",
-        value2:"",
-        value3:"" 
+    state = {
+        value: "",
+        value2: "",
+        value3: "",
+        value4: "",
+        value5: "",
     }
 
     render() {
         return (
             <div>
-                No numbers are allowed and the text should start with uppercase.
-                <br/>
-                <br/>
+                No numbers are allowed and the text should start with uppercase (autocorrected).
+                <br />
+                <br />
+                
                 This shows error while tiping:
-                <InputWrapper
-                    validator={this.validators.email}
+                <NativeInputWrapper
+                    validator={this.validators.testValidator}
                     showValidationErrorWhileTyping={true}
                     showValidationErrorOnMount={false}
                     value={this.state.value2}
                     onChange={e => this.setState({ value2: e.target.value })}
                 >
-                </InputWrapper>
-                <br/>
-                This also shows error on mount:
-                <InputWrapper
-                    validator={this.validators.email}
+                </NativeInputWrapper>
+                <br />
+                
+                This shows error on mount:
+                <NativeInputWrapper
+                    validator={this.validators.testValidator}
                     showValidationErrorWhileTyping={true}
                     showValidationErrorOnMount={true}
                     value={this.state.value3}
                     onChange={e => this.setState({ value3: e.target.value })}
                 >
-                </InputWrapper>
-                <br/>
-                This shows error on blur:
-                <InputWrapper
-                    validator={this.validators.email}
+                </NativeInputWrapper>
+                <br />
+
+                This shows error on blur only:
+                <NativeInputWrapper
+                    validator={this.validators.testValidator}
                     showValidationErrorWhileTyping={false}
                     showValidationErrorOnMount={false}
                     value={this.state.value}
                     onChange={e => this.setState({ value: e.target.value })}
                 >
-                </InputWrapper>
+                </NativeInputWrapper>
+                <br />
+
+                Underline disabled (underline has some known scrolling bugs):
+                <NativeInputWrapper
+                    disableUnderline
+                    validator={this.validators.testValidator}
+                    showValidationErrorWhileTyping={true}
+                    showValidationErrorOnMount={false}
+                    value={this.state.value4}
+                    onChange={e => this.setState({ value4: e.target.value })}
+                >
+                </NativeInputWrapper>
+
+                <br />
+                Apply to an imput from a UI library:
+                <br />
+                <br />
+                <MuiTextFieldWrapper
+                    validator={this.validators.testValidator}
+                    showValidationErrorWhileTyping={true}
+                    showValidationErrorOnMount={false}
+                    value={this.state.value5}
+                    onChange={e => this.setState({ value5: e.target.value })}
+                />
             </div>
         );
     }
