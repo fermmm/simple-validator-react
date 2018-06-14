@@ -2,7 +2,9 @@
 
 This is a visual implementation of simple-validator for React. It's a component that wraps ```<input>``` native tag adding the error message, problem underline and autocorrect.
 
-The ```<input>``` tag can be replaced with the input component from your favorite UI library changing that line in the file InputWrapper.jsx
+The ```<input>``` tag can be replaced with the input component from your favorite UI library.
+
+There is an example using Material UI TextField.
 
 ## Getting started
 
