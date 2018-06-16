@@ -12,8 +12,9 @@ class MuiTextFieldWrapper extends Component {
     static propTypes = {
         validator: PropTypes.func,
         showValidationErrorWhileTyping: PropTypes.bool,
-        showValidationErrorOnMount: PropTypes.bool,
-        disableUnderline: PropTypes.bool
+        showValidationErrorOnRender: PropTypes.bool,
+        disableUnderline: PropTypes.bool,
+        label: PropTypes.string
     };
 
     state = {
@@ -39,11 +40,12 @@ class MuiTextFieldWrapper extends Component {
         this.propsToFroward = { ...this.props };
         delete this.propsToFroward.validator;
         delete this.propsToFroward.showValidationErrorWhileTyping;
-        delete this.propsToFroward.showValidationErrorOnMount;
+        delete this.propsToFroward.showValidationErrorOnRender;
         delete this.propsToFroward.onChange;
         delete this.propsToFroward.onBlur;
         delete this.propsToFroward.onFocus;
         delete this.propsToFroward.disableUnderline;
+        delete this.propsToFroward.label;
     }
 
     onChange(e) {
@@ -69,21 +71,21 @@ class MuiTextFieldWrapper extends Component {
 
         const {
             showValidationErrorWhileTyping,
-            showValidationErrorOnMount
+            showValidationErrorOnRender
         } = this.props;
 
-        this.validationHandler.showErrorOnMount = showValidationErrorOnMount;
+        this.validationHandler.showErrorOnRender = showValidationErrorOnRender;
         this.validationHandler.showErrorWhileTyping = showValidationErrorWhileTyping;
-        const validationErrorText = this.validationHandler.getTextToRender(this.state.focused, "en");
+        const validationErrorText = this.validationHandler.getTextToRender(this.state.focused, 'en');
 
         return (
-            <div style={{ position: "relative" }}>
+            <div style={{ position: 'relative', display: 'inline-block'}}>
                 <FormControl error={validationErrorText != null}>
-                    <InputLabel>Name</InputLabel>
-                    <Input {...this.propsToFroward} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} inputRef={this.inputRef} spellCheck={false} />
+                    <InputLabel>{this.props.label}</InputLabel>
+                    <Input {...this.propsToFroward} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} inputRef={(r) => this.inputRef = r} spellCheck={false} />
                     <FormHelperText>{validationErrorText}</FormHelperText>
                 </FormControl>
-                {(this.inputRef.current && !this.props.disableUnderline) &&
+                {(this.inputRef && !this.props.disableUnderline) &&
                     <UnderlineOverlay
                         offsetLeft={0}
                         offsetTop={58}

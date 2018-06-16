@@ -5,26 +5,26 @@ export default class ValidationHandler {
   userTyped = false;
   underlineBeingShowed = false;
   showErrorWhileTyping = false;
-  showErrorOnMount = false;
+  showErrorOnRender = false;
 
   constructor(validatorProp, startingText) {
-    this.validator = validatorProp;
+      this.validator = validatorProp;
 
-    if (this.validator == null) {
-      return;
-    }
+      if (this.validator == null) {
+          return;
+      }
 
-    // Validate the starting value and only store the validation to always have a validation result available.
-    this.validate(startingText);
+      // Validate the starting value and only store the validation to always have a validation result available.
+      this.validate(startingText);
   }
 
   validate(text) {
-    if (this.validator == null) {
-      return;
-    }
+      if (this.validator == null) {
+          return;
+      }
 
-    const validationResult = this.validator(text).result;
-    this.lastValidationResult = validationResult;
+      const validationResult = this.validator(text).result;
+      this.lastValidationResult = validationResult;
   }
 
   /**
@@ -32,45 +32,45 @@ export default class ValidationHandler {
    * @param {string} text
    */
   getAutocorrectedText(text) {
-    if (this.validator == null) return text;
-    this.userTyped = true;
-    this.validate(text);
-    return this.lastValidationResult.text; // Autocorrected version of the text
+      if (this.validator == null) return text;
+      this.userTyped = true;
+      this.validate(text);
+      return this.lastValidationResult.text; // Autocorrected version of the text
   }
 
-  getTextToRender(isFocused, language = "en") {
-    if (this.validator == null) return null;
-    if (!this.userTyped && !this.showErrorOnMount) return null;
+  getTextToRender(isFocused, language = 'en') {
+      if (this.validator == null) return null;
+      if (!this.userTyped && !this.showErrorOnRender) return null;
 
-    if (this.lastValidationResult.isValid || this.lastValidationResult.errors.length === 0) {
-      this.errorBeingShowed = false;
-      return null;
-    };
+      if (this.lastValidationResult.isValid || this.lastValidationResult.errors.length === 0) {
+          this.errorBeingShowed = false;
+          return null;
+      }
 
-    // Don't show errors while typing to not scare the user, unless there is an error previously being showed.
-    if (isFocused && this.errorBeingShowed === false && !this.showErrorWhileTyping) return null;
+      // Don't show errors while typing to not scare the user, unless there is an error previously being showed.
+      if (isFocused && this.errorBeingShowed === false && !this.showErrorWhileTyping) return null;
 
-    this.errorBeingShowed = true;
+      this.errorBeingShowed = true;
 
-    return this.upperCase(this.lastValidationResult.errors[0].description[language]);
+      return this.upperCase(this.lastValidationResult.errors[0].description[language]);
   }
 
   getErrorCharacters(isFocused) {
-    if (this.validator == null) return null;
-    if (!this.userTyped && !this.showErrorOnMount) return null;
-    if (this.lastValidationResult.isValid || this.lastValidationResult.errors.length === 0) {
-      this.underlineBeingShowed = false;
-      return null;
-    };
+      if (this.validator == null) return null;
+      if (!this.userTyped && !this.showErrorOnRender) return null;
+      if (this.lastValidationResult.isValid || this.lastValidationResult.errors.length === 0) {
+          this.underlineBeingShowed = false;
+          return null;
+      }
 
-    // Don't show underline while typing to not confuse the user, unless there is an error previously being showed.
-    if (isFocused && this.underlineBeingShowed === false && !this.showErrorWhileTyping) return null;
+      // Don't show underline while typing to not confuse the user, unless there is an error previously being showed.
+      if (isFocused && this.underlineBeingShowed === false && !this.showErrorWhileTyping) return null;
 
-    this.underlineBeingShowed = true;
-    return this.lastValidationResult.errors[0].locations;
+      this.underlineBeingShowed = true;
+      return this.lastValidationResult.errors[0].locations;
   }
 
   upperCase(text) {
-    return text.charAt(0).toUpperCase() + text.slice(1);
+      return text.charAt(0).toUpperCase() + text.slice(1);
   }
 }

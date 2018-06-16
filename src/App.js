@@ -30,9 +30,8 @@ class App extends Component {
                 
                 This shows error while tiping:
                 <NativeInputWrapper
+                    showValidationErrorWhileTyping
                     validator={this.validators.testValidator}
-                    showValidationErrorWhileTyping={true}
-                    showValidationErrorOnMount={false}
                     value={this.state.value2}
                     onChange={e => this.setState({ value2: e.target.value })}
                 >
@@ -41,9 +40,9 @@ class App extends Component {
                 
                 This shows error on mount:
                 <NativeInputWrapper
+                    showValidationErrorWhileTyping
+                    showValidationErrorOnRender
                     validator={this.validators.testValidator}
-                    showValidationErrorWhileTyping={true}
-                    showValidationErrorOnMount={true}
                     value={this.state.value3}
                     onChange={e => this.setState({ value3: e.target.value })}
                 >
@@ -53,8 +52,6 @@ class App extends Component {
                 This shows error on blur only:
                 <NativeInputWrapper
                     validator={this.validators.testValidator}
-                    showValidationErrorWhileTyping={false}
-                    showValidationErrorOnMount={false}
                     value={this.state.value}
                     onChange={e => this.setState({ value: e.target.value })}
                 >
@@ -64,9 +61,8 @@ class App extends Component {
                 Underline disabled (underline has some known scrolling bugs):
                 <NativeInputWrapper
                     disableUnderline
+                    showValidationErrorWhileTyping
                     validator={this.validators.testValidator}
-                    showValidationErrorWhileTyping={true}
-                    showValidationErrorOnMount={false}
                     value={this.state.value4}
                     onChange={e => this.setState({ value4: e.target.value })}
                 >
@@ -77,9 +73,8 @@ class App extends Component {
                 <br />
                 <br />
                 <MuiTextFieldWrapper
+                    showValidationErrorWhileTyping
                     validator={this.validators.testValidator}
-                    showValidationErrorWhileTyping={true}
-                    showValidationErrorOnMount={false}
                     value={this.state.value5}
                     onChange={e => this.setState({ value5: e.target.value })}
                 />

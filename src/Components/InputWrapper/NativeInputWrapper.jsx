@@ -7,7 +7,7 @@ class NativeInputWrapper extends Component {
     static propTypes = {
         validator: PropTypes.func,
         showValidationErrorWhileTyping: PropTypes.bool,
-        showValidationErrorOnMount: PropTypes.bool,
+        showValidationErrorOnRender: PropTypes.bool,
         disableUnderline: PropTypes.bool
     };
 
@@ -34,7 +34,7 @@ class NativeInputWrapper extends Component {
         this.propsToFroward = {...this.props};
         delete this.propsToFroward.validator;
         delete this.propsToFroward.showValidationErrorWhileTyping;
-        delete this.propsToFroward.showValidationErrorOnMount;
+        delete this.propsToFroward.showValidationErrorOnRender;
         delete this.propsToFroward.onChange;
         delete this.propsToFroward.onBlur;
         delete this.propsToFroward.onFocus;
@@ -64,10 +64,10 @@ class NativeInputWrapper extends Component {
 
         const {
             showValidationErrorWhileTyping,
-            showValidationErrorOnMount
+            showValidationErrorOnRender
         } = this.props;
 
-        this.validationHandler.showErrorOnMount = showValidationErrorOnMount;
+        this.validationHandler.showErrorOnRender = showValidationErrorOnRender;
         this.validationHandler.showErrorWhileTyping = showValidationErrorWhileTyping;
 
         return (

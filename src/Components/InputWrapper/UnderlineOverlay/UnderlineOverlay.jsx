@@ -29,12 +29,12 @@ export default class UnderlineOverlay extends Component {
         if (this.divRef.current == null) {
             return;
         }
-        this.divRef.current.scrollTop = this.props.inputRef.current.scrollTop;
+        this.divRef.current.scrollTop = this.props.inputRef.scrollTop;
     }
 
     render() {
         const { inputRef, inputValue, charactersToUnderline } = this.props;
-        const input = inputRef.current;
+        const input = inputRef;
 
         if (input == null) {
             return null;
@@ -63,7 +63,7 @@ export default class UnderlineOverlay extends Component {
             right: inputStyles.right,
             left: inputStyles.left,
             width: inputStyles.width,
-            height: inputStyles.height,
+            //height: inputStyles.height,
             overfontSize: inputStyles.fontSize,
             fontFamily: inputStyles.fontFamily,
             lineHeight: inputStyles.lineHeight,
@@ -91,7 +91,7 @@ export default class UnderlineOverlay extends Component {
             }
             if (underlineCharacter && !closeTag) {
                 closeTag = true;
-                textToShow += '<span style="text-decoration:underline; text-decoration-color:red;">';
+                textToShow += '<span style="border-bottom: 2px solid red">';
             } else if (!underlineCharacter && closeTag) {
                 closeTag = false;
                 textToShow += '</span>';
