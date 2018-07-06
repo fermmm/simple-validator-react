@@ -34,7 +34,10 @@ export default class UnderlineOverlay extends Component {
 
     render() {
         const { inputRef, inputValue, charactersToUnderline } = this.props;
-        const input = inputRef;
+        let input = inputRef;
+
+        if(input.current)
+            input = input.current;
 
         if (input == null) {
             return null;
