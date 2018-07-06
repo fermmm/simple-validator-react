@@ -54,6 +54,18 @@ class MuiTextFieldWrapper extends Component {
             this.props.onChange(e);
     }
 
+    componentDidUpdate(prevProps) {
+        if(prevProps.value !== this.props.value)
+        {
+            if(!this.validationHandler.userTyped)
+            {
+                this.validationHandler.userTyped = true;
+                this.validationHandler.getAutocorrectedText(this.props.value);
+                this.forceUpdate();
+            }
+        }
+    }
+
     onFocus(e) {
         this.setState({ focused: true });
         if (this.props.onFocus != null)
